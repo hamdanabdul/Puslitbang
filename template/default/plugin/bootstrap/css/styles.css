@@ -77,6 +77,12 @@ body{
 
 }
 
+#height-image-table{
+  min-height: 100px;
+  max-height: 100px;
+
+}
+
 
 #why .item{
   padding-top:36px;

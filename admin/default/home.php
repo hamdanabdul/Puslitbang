@@ -9,39 +9,97 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
     include_once '../../sysconfig.inc.php';
 }
 
-// function koneksi_db() {
-//     $server="127.0.0.1";
-//     $username="";
-//     $password="";
-//     $database="10114561_akdmk";
-    
-//     //koneksi
-//     $link=mysqli_connect($server,$username,$password,$database);
-//     if (!$link) {
-//         die('Could not connect : '.mysqli_error());
-//     }
-// return $link;
-// }
-
 ?>
- 
-<fieldset class="menuBox adminHome">
-<div class="menuBoxInner">
-    <div class="per_title">
-        <h2><?php echo __('Gallery'); ?></h2>
-    </div>
-</div>
-</fieldset>
-  
-<!--html here-->
-<form method="post" action="" enctype="multipart/form-data">
-    <input type="hidden" name="MAX_FILE_SIZE" value="500000">
-    Add Photos <input multiple="true" type="file" name="photos[]"/>
 
-    <input type="submit" value="submit" />
-</form>
+<html>
+    <head>
+        
+        <link rel="stylesheet" href="../template/default/plugin/bootstrap/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../template/default/plugin/bootstrap/css/styles.css">
+    </head>
+    <body>
+
+    <div class="section">
+        <fieldset class="menuBox adminHome">
+        <div class="menuBoxInner">
+            <div class="per_title">
+                <h2><?php echo __('Gallery'); ?></h2>
+            </div>
+        </div>
+        </fieldset>
+        
+        <!--html here-->
+        <form method="post" action="" enctype="multipart/form-data">
+            <input type="hidden" name="MAX_FILE_SIZE" value="500000">
+            Add Photos <input multiple="true" type="file" name="photos[]"/>
+            <br>
+            <button type="submit" class="btn btn-default" aria-label="Left Align">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <input type="submit" value="Upload">
+            </button>
+        </form>
+        <br>
+        <br>    
+
+        <table class="table">
+        <thead class="thead-inverse">
+            <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Foto</th>
+            <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+<?php 
+    $sql = "SELECT * FROM galery";
+
+    // echo $sql_loan; //for debug purpose only
+    $result = $dbs->query($sql);
+    $i = 0;
+    while ( $item = $result->fetch_assoc()) {
+        $i++;
+        echo '
+        <tr>
+            <th scope="row">'. $i .'</th>
+            <td>'.$item['link_photo'].'</td>
+            <td><img class="img-responsive" id="height-image-table" src="../images/galery/'. $item['link_photo'] .'"></td>
+            <td>
+                <form method="post" action="">
+                    <input type="hidden" value="'. $item['id'] .'" name="id_photo">
+                    <button type="submit" class="btn btn-default" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        <input type="submit" value="delete">
+                    </button>
+                </form>
+            </td>
+        </tr>
+        ';
+    }
+?>
+        </tbody>
+        </table>
+</section>    
+    </body>
+</html>
 
 <?php
+
+
+if (isset($_POST['id_photo'])){
+    $id_photo=$_POST['id_photo'];
+
+    $query = "DELETE FROM galery WHERE id = '$id_photo'";
+    $dbs->query($query);
+    echo "The file has been deleted.
+        <script>
+            window.location.assign('');
+        </script>
+    ";
+}
+
+
+
 
 if (isset($_POST['MAX_FILE_SIZE'])){
 
@@ -62,7 +120,11 @@ for($i=0; $i<$total; $i++) {
     $dbs->query($query);
     //Upload the file into the temp dir
     if(move_uploaded_file($tmpFilePath, $newFilePath)) {
-        echo "The file has been uploaded.";
+        echo "The file has been uploaded.
+            <script>
+                window.location.assign('');
+            </script
+        ";
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
