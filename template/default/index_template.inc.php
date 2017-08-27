@@ -20,7 +20,12 @@ include "partials/meta.php";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
 </head>
 
-
+<style>
+      #map {
+        height: 400px;
+      }
+  
+    </style>
 
 <body >
 
@@ -286,11 +291,13 @@ include "partials/meta.php";
             </div>   
         </div>
     </div>
+
+
     <div class="container site-section" id="welcome">
         <h1>Galeri </h1>
         <div class="row">
         <?php 
-        $sql = "SELECT * FROM galery";
+        $sql = "SELECT * FROM galery LIMIT 3";
     
         // echo $sql_loan; //for debug purpose only
         $result = $dbs->query($sql);
@@ -313,6 +320,50 @@ include "partials/meta.php";
             <a class="btn btn-info btn-small" href="index.php?p=gallery"><?php echo __('Lihat Lebih Banyak..') ?></a></div>
         </div>
     </div>
+
+    <div class="dark-section">
+       
+
+            <div id="map"></div>
+
+         
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB--m_ndjyEvbE_ELOcvc0jSGVzLRN0fzg&libraries=places" type="text/javascript" async defer></script>    
+
+<script>
+            function initMap(){
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(function(position) {
+                            
+                            var map = new google.maps.Map(document.getElementById('map'), {
+                                zoom: 17,
+                                center: new google.maps.LatLng(-6.883136, 107.614251),
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                            });
+                            var infowindow = new google.maps.InfoWindow();  
+                            var marker;
+                                marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(-6.883136, 107.614251 ),
+                                map: map
+                                });
+                                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                                return function(){
+                                }})(marker, i));
+
+
+                            }, function() {
+                                handleLocationError(true, infoWindow, map.getCenter());
+                            });
+                            } else {
+                            }
+            }
+            initMap();
+            
+         </script>
+        
+       
+    </div>
+
     <footer>
         <div class="container">
             <div class="row">
