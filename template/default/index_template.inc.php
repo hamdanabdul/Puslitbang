@@ -169,7 +169,7 @@ include "partials/meta.php";
             <div class="row">
                 <div class="col-md-4 col-sm-6 footer-navigation">
                     <h3><a href="#">Puslitbang</a></h3>
-                    <p class="links"><a href="#">Beranda</a><strong> · </strong><a href="#">Libary </a><strong> · </strong><a href="#">Info </a><strong> </strong></p>
+                    <p class="links"><a href="index.php">Beranda</a><strong> · </strong><a href="index.php?p=librarian">Libary </a><strong> · </strong><a href="index.php?p=libinfo">Info </a><strong> </strong></p>
                     
                 </div>
                 <div class="col-md-4 col-sm-6 footer-contacts">
@@ -295,42 +295,32 @@ include "partials/meta.php";
 
     <div class="container site-section" id="welcome">
         <h1>Galeri </h1>
-        <div class="row">
-        <?php 
-        $sql = "SELECT * FROM galery LIMIT 3";
-    
-        // echo $sql_loan; //for debug purpose only
-        $result = $dbs->query($sql);
-        while ( $item = $result->fetch_assoc()) {
-            echo '
-            <div class="col-md-4">
-                <div class="thumbnail ">
-                    <a href="#7" target="_blank" data-lightbox="gambar"><img class="img-responsive" id="height" src="images/galery/'. $item['link_photo'] .'"></a>
-                </div>
-            </div>
-    
-            ';
-    
-           
-        }
-        //echo $result->fetch_assoc(); 
-        
-    ?>
-        <div class="content-readmore">
+            <div class="row">
+                <?php 
+                $sql = "SELECT * FROM galery ORDER BY id DESC LIMIT 3";
+            
+                // echo $sql_loan; //for debug purpose only
+                $result = $dbs->query($sql);
+                while ( $item = $result->fetch_assoc()) {
+                    echo '
+                    <div class="col-md-4">
+                        <div class="thumbnail ">
+                            <a href="images/galery/'. $item['link_photo'] .'" target="_blank" data-lightbox="gambar"><img class="img-responsive" id="height" src="images/galery/'. $item['link_photo'] .'"></a>
+                        </div>
+                    </div>
+            
+                    ';
+                }
+                ?>
+            <div class="content-readmore">
             <a class="btn btn-info btn-small" href="index.php?p=gallery"><?php echo __('Lihat Lebih Banyak..') ?></a></div>
         </div>
     </div>
 
     <div class="dark-section">
-       
-
-            <div id="map"></div>
-
-         
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB--m_ndjyEvbE_ELOcvc0jSGVzLRN0fzg&libraries=places" type="text/javascript" async defer></script>    
-
-<script>
+       <div id="map"></div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB--m_ndjyEvbE_ELOcvc0jSGVzLRN0fzg&libraries=places" type="text/javascript" async defer></script>    
+            <script>
             function initMap(){
                         if (navigator.geolocation) {
                             navigator.geolocation.getCurrentPosition(function(position) {
@@ -358,10 +348,7 @@ include "partials/meta.php";
                             }
             }
             initMap();
-            
-         </script>
-        
-       
+            </script>
     </div>
 
     <footer>
@@ -370,8 +357,8 @@ include "partials/meta.php";
                 <div class="col-md-4 col-sm-6 footer-navigation">
                     <!-- <img class="pull-left image-responsive hidden-xs" src="<?php echo $sysconf['template']['dir']; ?> /default/plugin/bootstrap/img/logo-pu.png" id="logo">// hhhhhhhhhhhhhhhhhhhhhh-->
                     <h3><a href="#">Puslitbang</a></h3>
-                    <p class="links"><a href="#">Beranda</a><strong> · </strong><a href="#">Libary </a><strong> · </strong><a href="#">Info </a><strong> </strong></p>
-                    <!-- <p class="company-name">puslitbang © 2017 </p> -->
+                    <p class="links"><a href="index.php">Beranda</a><strong> · </strong><a href="index.php?p=librarian">Libary </a><strong> · </strong><a href="index.php?p=libinfo">Info </a><strong> </strong></p>
+                   
                 </div>
                 <div class="col-md-4 col-sm-6 footer-contacts">
                     <div><a href="#"><span class="fa fa-map-marker footer-contacts-icon"> </span>

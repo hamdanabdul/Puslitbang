@@ -56,7 +56,7 @@ if ((bool) ini_get('safe_mode')) {
 @date_default_timezone_set('Asia/Jakarta');
 
 // senayan version
-define('SENAYAN_VERSION', 'SLiMS 8 (Akasia)');
+define('SENAYAN_VERSION', 'Puslitbang');
 
 // senayan session cookies name
 define('COOKIES_NAME', 'SenayanAdmin');
@@ -199,7 +199,7 @@ $sysconf['jsonld_detail'] = true;
 
 /* DATABASE BACKUP config */
 // specify the full path of mysqldump binary
-$sysconf['mysqldump'] = '/usr/bin/mysqldump';
+$sysconf['mysqldump'] = 'D:\SEMESTER6\KP\psenayan8-x64\apache\htdocs\akasia';
 // backup location (make sure it is accessible and rewritable to webserver!)
 $sysconf['temp_dir'] = '/tmp';
 $sysconf['backup_dir'] = UPLOAD.'backup'.DS;

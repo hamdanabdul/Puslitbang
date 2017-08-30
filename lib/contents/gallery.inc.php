@@ -18,28 +18,24 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
         echo '
         <div class="col-md-4">
         <div class="thumbnail ">
-            <a href="#7" target="_blank" data-lightbox="gambar"><img class="img-responsive" id="height" src="images/galery/'. $item['link_photo'] .'"></a>
+            <a href="images/galery/'. $item['link_photo'] .'" target="_blank" data-lightbox="gambar"><img class="img-responsive" id="height" src="images/galery/'. $item['link_photo'] .'"></a>
         </div>
     </div>
 
         ';
-
+    
+        
        
     }
     //echo $result->fetch_assoc(); 
     
 ?>
+    <script src="<?php echo $sysconf['template']['dir']; ?> /default/plugin/bootstrap/js/jquery.min.js"></script>
+    <script src="<?php echo $sysconf['template']['dir']; ?> /default/plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox-plus-jquery.min.js"></script>
 
            
            
         </div>
     </div>
-    <!-- choose file gambar 
-    ======================
-    <div>
-        <hr>
-        <label>Foto</label>
-        <label>:</label>
-        <input type="file" class="textbox" name="gambar"> 
-        <input type="submit" value="submit" >               
-    </div> -->
+   

@@ -48,92 +48,94 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
             <th>Name</th>
             <th>Foto</th>
             <th>Aksi</th>
+            
             </tr>
         </thead>
         <tbody>
-<?php 
-    $sql = "SELECT * FROM galery";
+            <?php 
+                $sql = "SELECT * FROM galery";
 
-    // echo $sql_loan; //for debug purpose only
-    $result = $dbs->query($sql);
-    $i = 0;
-    while ( $item = $result->fetch_assoc()) {
-        $i++;
-        echo '
-        <tr>
-            <th scope="row">'. $i .'</th>
-            <td>'.$item['link_photo'].'</td>
-            <td><img class="img-responsive" id="height-image-table" src="../images/galery/'. $item['link_photo'] .'"></td>
-            <td>
-                <form method="post" action="">
-                    <input type="hidden" value="'. $item['id'] .'" name="id_photo">
-                    <button type="submit" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        <input type="submit" value="delete">
-                    </button>
-                </form>
-            </td>
-        </tr>
-        ';
-    }
-?>
+                // echo $sql_loan; //for debug purpose only
+                $result = $dbs->query($sql);
+                $i = 0;
+                while ( $item = $result->fetch_assoc()) {
+                    $i++;
+                    echo '
+                    <tr>
+                        <th scope="row">'. $i .'</th>
+                        <td>'.$item['link_photo'].'</td>
+                        <td><img class="img-responsive" id="height-image-table" src="../images/galery/'. $item['link_photo'] .'"></td>
+                        <td>
+                            <form method="post" action="">
+                                <input type="hidden" value="'. $item['id'] .'" name="id_photo">
+                                <button type="submit" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    <input type="submit" value="delete">
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+    
+                
+                    ';
+
+                }
+            ?>
         </tbody>
         </table>
-</section>    
+    </section>    
     </body>
 </html>
 
-<?php
+        <?php
+         if (isset($_POST['id_photo'])){
+            $id_photo=$_POST['id_photo'];
 
-
-if (isset($_POST['id_photo'])){
-    $id_photo=$_POST['id_photo'];
-
-    $query = "DELETE FROM galery WHERE id = '$id_photo'";
-    $dbs->query($query);
-    echo "The file has been deleted.
-        <script>
-            window.location.assign('');
-        </script>
-    ";
-}
+            $query = "DELETE FROM galery WHERE id = '$id_photo'";
+            $dbs->query($query);
+            echo "The file has been deleted.
+                <script>
+                    window.location.assign('');
+                </script>
+            ";
+        }
 
 
 
 
-if (isset($_POST['MAX_FILE_SIZE'])){
+        if (isset($_POST['MAX_FILE_SIZE'])){
 
-$total = count($_FILES['photos']['name']);
+        $total = count($_FILES['photos']['name']);
 
- //Loop through each file
-for($i=0; $i<$total; $i++) {
-  //Get the temp file path
-  $tmpFilePath = $_FILES['photos']['tmp_name'][$i];
+        //Loop through each file
+        for($i=0; $i<$total; $i++) {
+        //Get the temp file path
+        $tmpFilePath = $_FILES['photos']['tmp_name'][$i];
 
-  //Make sure we have a filepath
-  if ($tmpFilePath != ""){
-    //Setup our new file path
-    $newFilePath = "../images/galery/".$_FILES['photos']['name'][$i];
-    $name=$_FILES['photos']['name'][$i];
-    
-    $query = "INSERT INTO galery VALUES(null, '$name')";
-    $dbs->query($query);
-    //Upload the file into the temp dir
-    if(move_uploaded_file($tmpFilePath, $newFilePath)) {
-        echo "The file has been uploaded.
-            <script>
-                window.location.assign('');
-            </script
-        ";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
-  }
-}
+        //Make sure we have a filepath
+        if ($tmpFilePath != ""){
+            //Setup our new file path
+            $newFilePath = "../images/galery/".$_FILES['photos']['name'][$i];
+            $name=$_FILES['photos']['name'][$i];
+            
+            $query = "INSERT INTO galery VALUES(null, '$name')";
+            $dbs->query($query);
+            //Upload the file into the temp dir
+            if(move_uploaded_file($tmpFilePath, $newFilePath)) {
+                echo "The file has been uploaded.
+                    <script>
+                        window.location.assign('');
+                    </script
+                ";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+        }
 
-}
+        }
 
-?>
+        ?>
 
 <!--/html-->
 <?php } ?>
